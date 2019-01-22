@@ -1,4 +1,4 @@
-package be.thomasmore.locateit.activities.classes;
+package be.thomasmore.locateit.classes;
 
 public class Feedback {
 

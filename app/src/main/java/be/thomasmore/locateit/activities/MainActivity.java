@@ -1,7 +1,9 @@
-package be.thomasmore.locateit;
+package be.thomasmore.locateit.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import be.thomasmore.locateit.R;
 
 public class MainActivity extends AppCompatActivity {
 
