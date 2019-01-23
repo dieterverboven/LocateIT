@@ -1,10 +1,13 @@
 package be.thomasmore.locateit.classes;
 
+import java.util.Date;
+
 public class Feedback {
 
     private int id;
-    private int score;
+    private long score;
     private String beschrijving;
+    private int timestamp;
 
     public Feedback(){
 
@@ -18,11 +21,11 @@ public class Feedback {
         this.id = id;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
@@ -32,5 +35,13 @@ public class Feedback {
 
     public void setBeschrijving(String beschrijving) {
         this.beschrijving = beschrijving;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
     }
 }

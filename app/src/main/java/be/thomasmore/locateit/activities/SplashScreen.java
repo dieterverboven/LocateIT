@@ -20,14 +20,16 @@ public class SplashScreen extends AppCompatActivity {
                 .withSplashTimeOut(5000)
                 .withBackgroundColor(Color.WHITE)
                 .withLogo(R.drawable.logo)
-                .withBeforeLogoText("LocateIT")
                 .withAfterLogoText("Welkom, gebruiker!")
                 .withFooterText("Copyright LocateIT");
 
 
         View view = config.create();
 
+
         setContentView(view);
+
+
 
     }
 }
