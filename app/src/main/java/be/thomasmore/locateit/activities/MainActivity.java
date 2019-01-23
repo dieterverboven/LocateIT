@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.Console;
 import java.util.Date;
+import java.util.logging.ConsoleHandler;
 
 import be.thomasmore.locateit.R;
 import be.thomasmore.locateit.classes.Feedback;
@@ -56,7 +59,26 @@ public class MainActivity extends AppCompatActivity {
                 .setView(viewInflater)
                 .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+                        Date date = new Date();
 
+                        EditText beschrijving = (EditText) viewInflater.findViewById(R.id.beschrijving);
+                        Spinner typeSpinner = (Spinner) viewInflater.findViewById(R.id.scoreSpinner);
+
+                        int selectedItem = typeSpinner.getSelectedItemPosition() + 1;
+                        String text = beschrijving.getText().toString();
+
+                        Feedback feedback = new Feedback();
+
+                        feedback.setTimestamp(date.getTime());
+                        feedback.setScore(selectedItem);
+                        feedback.setBeschrijving(text);
+
+                        //POST request naar backend
+                        JsonHelper jsonHelper = new JsonHelper();
+                        HttpWriter httpWriter = new HttpWriter();
+                        httpWriter.setJsonObject(jsonHelper.getJsonFeedback(feedback));
+
+                        httpWriter.execute("https://locateit-backend.herokuapp.com/feedback");
                         giveFeedback();
                     }
                 })
@@ -70,24 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     //feedback doorverwijzen naar database
     private void giveFeedback() {
-        Date date = new Date();
-
-        EditText beschrijving = (EditText) findViewById(R.id.beschrijving);
-        Spinner typeSpinner = (Spinner) findViewById(R.id.starsSpinner);
-
-        Feedback feedback = new Feedback();
-
-        feedback.setTimestamp((int)date.getTime());
-        feedback.setScore(typeSpinner.getSelectedItemId() + 1);
-        feedback.setBeschrijving(beschrijving.getText().toString());
-
-        //POST request naar backend
-        JsonHelper jsonHelper = new JsonHelper();
-        HttpWriter httpWriter = new HttpWriter();
-        httpWriter.setJsonObject(jsonHelper.getJsonFeedback(feedback));
-
-        httpWriter.execute("https://locateit-backend.herokuapp.com/feedback");
-
         Toast.makeText(getBaseContext(),"Bedankt voor de feedback!",Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,7 +7,7 @@ public class Feedback {
     private int id;
     private long score;
     private String beschrijving;
-    private int timestamp;
+    private long timestamp;
 
     public Feedback(){
 
@@ -37,11 +37,11 @@ public class Feedback {
         this.beschrijving = beschrijving;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

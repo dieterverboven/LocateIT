@@ -4,8 +4,9 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_annuleer">Annuleer</string>
     <string name="dialog_beschrijving">Waarom?</string>
+    <string name="vraag_ster">Hoeveel sterren?</string>
 
-    <string name="dialog_feedback">Hoeveel sterren?</string>
+    <string name="dialog_feedback">Geef ons feedback!</string>
 
     <string-array name="stars">
         <item>1</item>

@@ -37,10 +37,10 @@ public class HttpWriter extends AsyncTask<String, Void, String> {
         return postTextToUrl(urls[0]);
     }
 
-    @Override
-    protected void onPostExecute(String result) {
-        onResultReadyListener.resultReady(result);
-    }
+//    @Override
+//    protected void onPostExecute(String result) {
+//        onResultReadyListener.resultReady(result);
+//    }
 
     private String postTextToUrl(String urls) {
         String text = null;
