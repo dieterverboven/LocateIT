@@ -8,6 +8,10 @@ import android.graphics.Matrix;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +26,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.arubanetworks.meridian.search.SearchFragment;
+
 import java.io.Console;
 import java.util.Date;
 import java.util.logging.ConsoleHandler;
@@ -31,7 +37,6 @@ import be.thomasmore.locateit.classes.Application;
 import be.thomasmore.locateit.classes.Feedback;
 import be.thomasmore.locateit.helpers.JsonHelper;
 import be.thomasmore.locateit.http.HttpWriter;
-
 import com.android.volley.VolleyError;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
 import com.arubanetworks.meridian.internal.util.Strings;
@@ -43,7 +48,8 @@ import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
 import com.arubanetworks.meridian.requests.MeridianRequest;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
 
@@ -54,36 +60,31 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             else
                 selectItem(0);
         }
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_feedback:
-//                showFeedbackDialog();
-//                return true;
-//            default:
-//                return false;
-//        }
-
-        if(toggle.onOptionsItemSelected(item)) {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     //feedback doorverwijzen naar database
     private void giveFeedback() {
-        Toast.makeText(getBaseContext(),"Bedankt voor de feedback!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Bedankt voor de feedback!", Toast.LENGTH_SHORT).show();
     }
 
     private void selectItem(int position) {
@@ -258,6 +259,26 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_map:
+                Toast.makeText(getBaseContext(),"Map",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_feedback:
+                showFeedbackDialog();
+                break;
+            default:
+                return false;
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
 
     }
 }
