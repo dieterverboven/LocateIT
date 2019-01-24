@@ -2,6 +2,8 @@ package be.thomasmore.locateit.activities;
 
 import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,11 +26,19 @@ import be.thomasmore.locateit.helpers.JsonHelper;
 import be.thomasmore.locateit.http.HttpWriter;
 
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -41,13 +51,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_feedback:
-                showFeedbackDialog();
-                return true;
-            default:
-                return false;
+//        switch (item.getItemId()) {
+//            case R.id.menu_feedback:
+//                showFeedbackDialog();
+//                return true;
+//            default:
+//                return false;
+//        }
+
+        if(toggle.onOptionsItemSelected(item)) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     private void showFeedbackDialog() {
