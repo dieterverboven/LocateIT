@@ -3,8 +3,10 @@ package be.thomasmore.locateit.activities;
 import android.Manifest;
 import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -270,9 +272,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_feedback:
                 showFeedbackDialog();
                 break;
+            case R.id.nav_privacy:
+                String base_url = "https://privacybeleid.jordyliebens.be/";
+
+                Uri uri = Uri.parse(base_url);
+                Intent intent =new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
             default:
                 return false;
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

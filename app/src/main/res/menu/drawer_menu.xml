@@ -22,9 +22,9 @@
             <item android:id="@+id/nav_instellingen"
                 android:icon="@drawable/ic_settings"
                 android:title="Instellingen"/>
-            <item android:id="@+id/nav_gdpr"
+            <item android:id="@+id/nav_privacy"
                 android:icon="@drawable/ic_info"
-                android:title="Lees GDPR"/>
+                android:title="Lees Privacybeleid"/>
 
         </menu>
     </item>
