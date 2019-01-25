@@ -5,6 +5,8 @@ import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +36,7 @@ import be.thomasmore.locateit.http.HttpWriter;
 
 import com.android.volley.VolleyError;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
+import com.arubanetworks.meridian.editor.EditorKey;
 import com.arubanetworks.meridian.internal.util.Strings;
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
@@ -149,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 // Turn off the overview button (only shown if there is an overview map for the location)
                 mapOptions.HIDE_OVERVIEW_BUTTON = true;
                 mapOptions.HIDE_LEVELS_CONTROL = true;
-                mapOptions.ACCENT_COLOR = R.color.colorPrimary;
                 mapOptions.HIDE_MAP_LABEL = true;
                 mapOptions.HIDE_WATERMARK = true;
+                mapOptions.HIDE_ACCESSIBILITY_BUTTON = true;
                 builder.setMapOptions(mapOptions);
 
                 // example: how to set placemark markers text size
