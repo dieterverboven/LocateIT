@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (!userSettingsLocal.isAllowPrivacy())
         {
-            showPrivacyDialog();
+//            showPrivacyDialog();
         }
     }
 
@@ -164,10 +164,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         EditText mail = (EditText) viewInflater.findViewById(R.id.mail);
                         CheckBox allow = (CheckBox) viewInflater.findViewById(R.id.acceptPrivacy);
 
-                        if (voornaam.equals("") || mail.equals("") || !allow.isChecked())
+                        if (!allow.isChecked())
                         {
-                            Toast.makeText(getBaseContext(), "Alle gegevens moeten ingevuld zijn en het beleid moet geaccepteerd worden!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Het privacybeleid moet geaccepteerd worden!", Toast.LENGTH_LONG).show();
 
+                            showPrivacyDialog();
                         }
                         else
                         {
