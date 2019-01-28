@@ -21,13 +21,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arubanetworks.meridian.search.SearchFragment;
@@ -39,8 +42,11 @@ import java.util.logging.ConsoleHandler;
 import be.thomasmore.locateit.R;
 import be.thomasmore.locateit.classes.Application;
 import be.thomasmore.locateit.classes.Feedback;
+import be.thomasmore.locateit.classes.UserSettings;
 import be.thomasmore.locateit.helpers.JsonHelper;
 import be.thomasmore.locateit.http.HttpWriter;
+import be.thomasmore.locateit.services.LocalStorage;
+
 import com.android.volley.VolleyError;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
 import com.arubanetworks.meridian.editor.EditorKey;
@@ -79,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        UserSettings userSettingsLocal = new UserSettings();
+
+        if (!userSettingsLocal.isAllowPrivacy())
+        {
+            showPrivacyDialog();
+        }
     }
 
     @Override
@@ -133,6 +146,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //Accept privacy before you can use app
+    private void showPrivacyDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View viewInflater = inflater.inflate(R.layout.dialog_privacy, null);
+        builder.setTitle(R.string.dialog_privacy)
+                .setView(viewInflater)
+                .setNeutralButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        EditText voornaam = (EditText) viewInflater.findViewById(R.id.voornaam);
+                        EditText mail = (EditText) viewInflater.findViewById(R.id.mail);
+                        CheckBox allow = (CheckBox) viewInflater.findViewById(R.id.acceptPrivacy);
+
+                        if (voornaam.equals("") || mail.equals("") || !allow.isChecked())
+                        {
+                            Toast.makeText(getBaseContext(), "Alle gegevens moeten ingevuld zijn en het beleid moet geaccepteerd worden!", Toast.LENGTH_LONG).show();
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getBaseContext(), "Instelling aangepast", Toast.LENGTH_SHORT).show();
+                            editUserSettings(voornaam, mail, allow);
+
+                            dialog.cancel();
+                        }
+
+
+
+
+                    }
+                })
+                .setCancelable(false);
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -295,5 +346,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
 
+    }
+
+    private void editUserSettings(EditText voornaam, EditText mail, CheckBox allow)
+    {
+        UserSettings userSettings = new UserSettings();
+
+        if (allow.isChecked())
+        {
+            userSettings.setAllowPrivacy(true);
+        }
+        userSettings.setFirstName(voornaam.getText().toString());
+        userSettings.setMail(mail.getText().toString());
+
+        LocalStorage.setLocalUserSettings(userSettings, getApplicationContext());
     }
 }
