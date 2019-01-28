@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.thomasmore.locateit.classes.Department;
 import be.thomasmore.locateit.classes.Feedback;
 import be.thomasmore.locateit.classes.Product;
 
@@ -69,5 +70,28 @@ public class JsonHelper {
         }
 
         return products;
+    }
+
+    public List<Department> getDepartments(String jsonText){
+        List<Department> departments = new ArrayList<Department>();
+
+        try{
+            JSONArray jsonProductArray = new JSONArray(jsonText);
+            for (int i=0; i<jsonProductArray.length(); i++){
+                JSONObject jsonProduct = jsonProductArray.getJSONObject(i);
+
+                Department department = new Department();
+                department.setId(jsonProduct.getString("_id"));
+                department.setNaam(jsonProduct.getString("naam"));
+
+                Log.i("JSON Object: ", department.toString());
+
+                departments.add(department);
+            }
+        }catch (JSONException e){
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return departments;
     }
 }

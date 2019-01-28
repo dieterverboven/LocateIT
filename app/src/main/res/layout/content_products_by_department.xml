@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.ProductOverview"
-    tools:showIn="@layout/activity_product_overview">
+    tools:context=".activities.ProductsByDepartment"
+    tools:showIn="@layout/activity_products_by_department">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listDepartments"
+        android:id="@+id/listProducts"
         android:layout_gravity="center_horizontal" />
-
 </android.support.constraint.ConstraintLayout>
