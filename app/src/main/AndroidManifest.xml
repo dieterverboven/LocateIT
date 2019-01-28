@@ -35,10 +35,14 @@
             android:name=".activities.ProductOverview"
             android:label="@string/title_activity_product_overview"
             android:theme="@style/AppTheme.NoActionBar" />
+<<<<<<< HEAD
         <activity
             android:name=".activities.ProductsByDepartment"
             android:label="@string/title_activity_products_by_department"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+        <activity android:name=".activities.SettingsActivity"></activity>
+>>>>>>> 09a17401ea3c044e7422a3006b8ed83fcf489aa6
     </application>
 
 </manifest>
