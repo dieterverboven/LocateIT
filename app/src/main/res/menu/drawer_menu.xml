@@ -25,6 +25,9 @@
             <item android:id="@+id/nav_privacy"
                 android:icon="@drawable/ic_info"
                 android:title="Lees Privacybeleid"/>
+            <item android:id="@+id/nav_productOverview"
+                android:icon="@drawable/ic_smartphone"
+                android:title="Producten in de buurt"/>
 
         </menu>
     </item>

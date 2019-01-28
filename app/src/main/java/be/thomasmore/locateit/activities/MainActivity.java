@@ -282,6 +282,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent =new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
+            case R.id.nav_productOverview:
+                Intent intent2 = new Intent(this, ProductOverview.class);
+                startActivity(intent2);
+                break;
             default:
                 return false;
         }
