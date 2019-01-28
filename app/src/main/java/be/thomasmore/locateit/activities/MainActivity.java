@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
+    UserSettings userSettingsLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        UserSettings userSettingsLocal = new UserSettings();
+        userSettingsLocal = LocalStorage.getUserSettingsLocal(getApplicationContext());
 
         if (!userSettingsLocal.isAllowPrivacy())
         {
-//            showPrivacyDialog();
+            showPrivacyDialog();
         }
     }
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LayoutInflater inflater = this.getLayoutInflater();
 
         final View viewInflater = inflater.inflate(R.layout.dialog_feedback, null);
+
         builder.setTitle(R.string.dialog_feedback)
                 .setView(viewInflater)
                 .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LayoutInflater inflater = this.getLayoutInflater();
 
         final View viewInflater = inflater.inflate(R.layout.dialog_privacy, null);
+
         builder.setTitle(R.string.dialog_privacy)
                 .setView(viewInflater)
                 .setNeutralButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
@@ -163,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         EditText voornaam = (EditText) viewInflater.findViewById(R.id.voornaam);
                         EditText mail = (EditText) viewInflater.findViewById(R.id.mail);
                         CheckBox allow = (CheckBox) viewInflater.findViewById(R.id.acceptPrivacy);
+
+                        userSettingsLocal = LocalStorage.getUserSettingsLocal(getApplicationContext());
+
+                        voornaam.setText(userSettingsLocal.getFirstName());
+                        mail.setText(userSettingsLocal.getMail());
 
                         if (!allow.isChecked())
                         {
@@ -172,14 +180,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         else
                         {
-                            Toast.makeText(getBaseContext(), "Instelling aangepast", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Instellingen aangepast!", Toast.LENGTH_SHORT).show();
                             editUserSettings(voornaam, mail, allow);
 
                             dialog.cancel();
                         }
-
-
-
 
                     }
                 })
@@ -338,6 +343,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent2 = new Intent(this, ProductOverview.class);
                 startActivity(intent2);
                 break;
+            case R.id.nav_instellingen:
+                Intent intent3 = new Intent(this, SettingsActivity.class);
+                startActivity(intent3);
+                break;
             default:
                 return false;
         }
@@ -349,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void editUserSettings(EditText voornaam, EditText mail, CheckBox allow)
+    public void editUserSettings(EditText voornaam, EditText mail, CheckBox allow)
     {
         UserSettings userSettings = new UserSettings();
 
@@ -361,5 +370,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userSettings.setMail(mail.getText().toString());
 
         LocalStorage.setLocalUserSettings(userSettings, getApplicationContext());
+    }
+
+    public void onClickPrivacyButton(View v)
+    {
+        String base_url = "https://privacybeleid.jordyliebens.be/";
+
+        Uri uri = Uri.parse(base_url);
+        Intent intent =new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }

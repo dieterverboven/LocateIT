@@ -29,12 +29,13 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".activities.PrivacyActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.PrivacyActivity" />
         <activity
             android:name=".activities.ProductOverview"
             android:label="@string/title_activity_product_overview"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>
