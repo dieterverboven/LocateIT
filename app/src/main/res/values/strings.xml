@@ -8,6 +8,11 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="nav_privacy">Privacybeleid</string>
+    <string name="button_privacy">privacybeleid.jordyliebens.be</string>
+    <string name="dialog_accept">Ik accepteer</string>
+    <string name="dialog_naam">Voornaam</string>
+    <string name="dialog_mail">voorbeeld@mail.be</string>
+    <string name="dialog_privacy">Accepteer het beleid en vul de gegevens in om door te gaan:</string>
 
     <string name="dialog_feedback">Geef ons feedback!</string>
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/privacy"
+        android:layout_marginLeft="10dp"
+        android:autoLink="web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_privacy"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/acceptPrivacy"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_accept"/>
+
+    <TextView
+        android:id="@+id/textVoornaam"
+        android:layout_marginLeft="10dp"
+        android:autoLink="web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voornaam:"
+        android:textSize="20sp" />
+    <EditText
+        android:id="@+id/voornaam"
+        android:textSize="15dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:inputType="text"
+        android:hint="@string/dialog_naam"/>
+    <TextView
+        android:id="@+id/email"
+        android:layout_marginLeft="10dp"
+        android:autoLink="web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emailadres:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/mail"
+        android:textSize="15dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:inputType="text"
+        android:hint="@string/dialog_mail"/>
+
+
+</LinearLayout>
