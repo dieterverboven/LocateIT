@@ -6,7 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import be.thomasmore.locateit.classes.Feedback;
+import be.thomasmore.locateit.classes.Product;
 
 public class JsonHelper {
 
@@ -39,5 +43,31 @@ public class JsonHelper {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return jsonObjectFeedback;
+    }
+
+    public List<Product> getProducts(String jsonText){
+        List<Product> products = new ArrayList<Product>();
+
+        try{
+            JSONArray jsonProductArray = new JSONArray(jsonText);
+            for (int i=0; i<jsonProductArray.length(); i++){
+                JSONObject jsonProduct = jsonProductArray.getJSONObject(i);
+
+                Product product = new Product();
+                product.setId(jsonProduct.getString("_id"));
+                product.setNaam(jsonProduct.getString("naam"));
+                product.setBeschrijving(jsonProduct.getString("beschrijving"));
+                product.setAfdeling(jsonProduct.getString("afdeling"));
+                product.setPrijs(jsonProduct.getDouble("prijs"));
+
+                Log.i("JSON Object: ", product.toString());
+
+                products.add(product);
+            }
+        }catch (JSONException e){
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return products;
     }
 }
