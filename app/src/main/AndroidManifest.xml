@@ -18,7 +18,9 @@
         <activity
             android:name=".activities.ProductDetail"
             android:label="@string/title_activity_product_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -40,7 +42,10 @@
             android:name=".activities.ProductsByDepartment"
             android:label="@string/title_activity_products_by_department"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
