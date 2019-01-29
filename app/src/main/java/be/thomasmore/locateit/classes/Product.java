@@ -6,16 +6,26 @@ public class Product {
     private String beschrijving;
     private String afdeling;
     private double prijs;
+    private String afbeelding;
 
     public Product() {
     }
 
-    public Product(String id, String naam, String beschrijving, String afdeling, String afbeelding, double prijs) {
+    public Product(String id, String naam, String beschrijving, String afdeling, double prijs, String afbeelding) {
         this.id = id;
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.afdeling = afdeling;
         this.prijs = prijs;
+        this.afbeelding = afbeelding;
+    }
+
+    public String getAfbeelding() {
+        return afbeelding;
+    }
+
+    public void setAfbeelding(String afbeelding) {
+        this.afbeelding = afbeelding;
     }
 
     public String getId() {

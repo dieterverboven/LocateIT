@@ -60,7 +60,11 @@ public class JsonHelper {
                 product.setBeschrijving(jsonProduct.getString("beschrijving"));
                 product.setAfdeling(jsonProduct.getString("afdeling"));
                 product.setPrijs(jsonProduct.getDouble("prijs"));
-
+                if (!jsonProduct.has("afbeelding")){
+                    product.setAfbeelding("unavailable.png");
+                } else{
+                    product.setAfbeelding(jsonProduct.getString("afbeelding"));
+                }
                 Log.i("JSON Object: ", product.toString());
 
                 products.add(product);
@@ -93,5 +97,29 @@ public class JsonHelper {
         }
 
         return departments;
+    }
+
+    public Product getProduct(String jsonText){
+        Product product = new Product();
+
+        try {
+            JSONObject jsonProduct = new JSONObject(jsonText);
+
+            product.setId(jsonProduct.getString("_id"));
+            product.setAfdeling(jsonProduct.getString("afdeling"));
+            product.setNaam(jsonProduct.getString("naam"));
+            product.setPrijs(jsonProduct.getDouble("prijs"));
+            product.setBeschrijving(jsonProduct.getString("beschrijving"));
+            if (!jsonProduct.has("afbeelding")){
+                product.setAfbeelding("unavailable.png");
+            } else{
+                product.setAfbeelding(jsonProduct.getString("afbeelding"));
+            }
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return product;
     }
 }

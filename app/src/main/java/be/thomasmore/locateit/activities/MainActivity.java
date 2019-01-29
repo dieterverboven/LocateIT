@@ -33,6 +33,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arubanetworks.meridian.editor.Placemark;
+import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
 import com.arubanetworks.meridian.search.SearchFragment;
 
 import java.io.Console;
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     UserSettings userSettingsLocal;
 
+    private String afdeling;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            afdeling = bundle.getString("afdeling");
+        }
 
         if (savedInstanceState == null) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -89,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         userSettingsLocal = LocalStorage.getUserSettingsLocal(getApplicationContext());
 
-        if (!userSettingsLocal.isAllowPrivacy())
-        {
+        if (!userSettingsLocal.isAllowPrivacy()) {
             showPrivacyDialog();
         }
     }
@@ -172,14 +180,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         voornaam.setText(userSettingsLocal.getFirstName());
                         mail.setText(userSettingsLocal.getMail());
 
-                        if (!allow.isChecked())
-                        {
+                        if (!allow.isChecked()) {
                             Toast.makeText(getBaseContext(), "Het privacybeleid moet geaccepteerd worden!", Toast.LENGTH_LONG).show();
 
                             showPrivacyDialog();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(getBaseContext(), "Instellingen aangepast!", Toast.LENGTH_SHORT).show();
                             editUserSettings(voornaam, mail, allow);
 
@@ -240,11 +245,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     @Override
                     public void onPlacemarksLoadFinish() {
-                        /*for (Placemark placemark : mapFragment.getMapView().getPlacemarks()) {
-                            if ("APPLE".equals(placemark.getName())) {
-                                mapFragment.startDirections(DirectionsDestination.forPlacemarkKey(placemark.getKey()));
+                        if (afdeling != null) {
+                            for (Placemark placemark : mapFragment.getMapView().getPlacemarks()) {
+                                if (afdeling.equals(placemark.getName())) {
+                                    mapFragment.startDirections(DirectionsDestination.forPlacemarkKey(placemark.getKey()));
+                                }
                             }
-                        }*/
+                        }
                     }
 
                     @Override
@@ -323,11 +330,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
 
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_map:
-                Toast.makeText(getBaseContext(),"Map",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Map", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_feedback:
                 showFeedbackDialog();
@@ -336,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String base_url = "https://privacybeleid.jordyliebens.be/";
 
                 Uri uri = Uri.parse(base_url);
-                Intent intent =new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
             case R.id.nav_productOverview:
@@ -358,12 +366,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void editUserSettings(EditText voornaam, EditText mail, CheckBox allow)
-    {
+    public void editUserSettings(EditText voornaam, EditText mail, CheckBox allow) {
         UserSettings userSettings = new UserSettings();
 
-        if (allow.isChecked())
-        {
+        if (allow.isChecked()) {
             userSettings.setAllowPrivacy(true);
         }
         userSettings.setFirstName(voornaam.getText().toString());
@@ -372,12 +378,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LocalStorage.setLocalUserSettings(userSettings, getApplicationContext());
     }
 
-    public void onClickPrivacyButton(View v)
-    {
+    public void onClickPrivacyButton(View v) {
         String base_url = "https://privacybeleid.jordyliebens.be/";
 
         Uri uri = Uri.parse(base_url);
-        Intent intent =new Intent(Intent.ACTION_VIEW, uri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 }
