@@ -1,6 +1,7 @@
 package be.thomasmore.locateit.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,15 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         View rowView = inflater.inflate(R.layout.productslistviewitem, parent, false);
 
         final TextView textViewNaam = rowView.findViewById(R.id.productNaam);
+        final ImageView imageViewStock = rowView.findViewById(R.id.stock);
 
         textViewNaam.setText(values.get(position).getNaam());
+
+        if (values.get(position).isInStock()){
+            imageViewStock.setImageResource(R.drawable.ic_yes);
+        } else {
+            imageViewStock.setImageResource(R.drawable.ic_no);
+        }
 
         return rowView;
     }

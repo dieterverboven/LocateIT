@@ -7,6 +7,7 @@ public class Product {
     private String afdeling;
     private double prijs;
     private String afbeelding;
+    private boolean inStock;
 
     public Product() {
     }
@@ -18,6 +19,14 @@ public class Product {
         this.afdeling = afdeling;
         this.prijs = prijs;
         this.afbeelding = afbeelding;
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
     }
 
     public String getAfbeelding() {

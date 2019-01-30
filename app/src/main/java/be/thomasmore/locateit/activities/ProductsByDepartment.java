@@ -60,11 +60,26 @@ public class ProductsByDepartment extends AppCompatActivity {
             public void resultReady(String result) {
                 JsonHelper jsonHelper = new JsonHelper();
                 products = jsonHelper.getProducts(result);
-                useAdapter();
+                getStocks(products);
             }
         });
         String url = "https://locateit-backend.herokuapp.com/products/afdeling/";
         url = url.concat(afdeling);
+        httpReader.execute(url);
+    }
+
+    private void getStocks(final List<Product> productsTemp){
+        HttpReader httpReader = new HttpReader();
+        httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
+            @Override
+            public void resultReady(String result) {
+                JsonHelper jsonHelper = new JsonHelper();
+                products = jsonHelper.getStocks(result, productsTemp);
+
+                useAdapter();
+            }
+        });
+        String url = "https://locateit-backend.herokuapp.com/stocks/";
         httpReader.execute(url);
     }
 

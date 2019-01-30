@@ -122,4 +122,18 @@ public class JsonHelper {
 
         return product;
     }
+
+    public List<Product> getStocks(String jsonText, List<Product> products){
+        try {
+            JSONObject jsonObjectStock = new JSONObject(jsonText);
+            for (int i = 0; i< products.size(); i++) {
+                products.get(i).setInStock(jsonObjectStock.getBoolean("inStock"));
+            }
+
+        }catch (JSONException e){
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return products;
+    }
 }
