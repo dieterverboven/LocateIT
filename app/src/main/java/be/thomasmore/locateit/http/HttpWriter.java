@@ -54,6 +54,7 @@ public class HttpWriter extends AsyncTask<String, Void, String> {
             urlConnection.setDoInput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("token", "aH6uwQPK2jVChhW9m7cxvU5U");
             urlConnection.setRequestMethod("POST");
 
             OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
