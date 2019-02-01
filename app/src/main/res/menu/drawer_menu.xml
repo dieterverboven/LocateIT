@@ -16,18 +16,18 @@
             <item android:id="@+id/nav_map"
                 android:icon="@drawable/ic_map"
                 android:title="Navigatie"/>
-            <item android:id="@+id/nav_feedback"
-                android:icon="@drawable/ic_feedback"
-                android:title="Geef feedback"/>
+            <item android:id="@+id/nav_productOverview"
+                android:icon="@drawable/ic_smartphone"
+                android:title="Producten in de buurt"/>
             <item android:id="@+id/nav_instellingen"
                 android:icon="@drawable/ic_settings"
                 android:title="Instellingen"/>
             <item android:id="@+id/nav_privacy"
                 android:icon="@drawable/ic_info"
                 android:title="Lees Privacybeleid"/>
-            <item android:id="@+id/nav_productOverview"
-                android:icon="@drawable/ic_smartphone"
-                android:title="Producten in de buurt"/>
+            <item android:id="@+id/nav_feedback"
+                android:icon="@drawable/ic_feedback"
+                android:title="Geef feedback"/>
 
         </menu>
     </item>
