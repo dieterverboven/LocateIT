@@ -335,7 +335,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_map:
-                Toast.makeText(getBaseContext(), "Map", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getBaseContext(), "Navigatie", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_feedback:
                 showFeedbackDialog();
@@ -344,8 +345,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String base_url = "https://privacybeleid.jordyliebens.be/";
 
                 Uri uri = Uri.parse(base_url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent1);
                 break;
             case R.id.nav_productOverview:
                 Intent intent2 = new Intent(this, ProductOverview.class);

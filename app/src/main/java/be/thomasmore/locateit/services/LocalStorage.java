@@ -41,8 +41,6 @@ public class LocalStorage {
             Log.e("login activity", "File not found: " + e.toString());
 
             // Create userSettings.txt
-            userSettings.setFirstName("Voornaam");
-            userSettings.setMail("Mail");
             setLocalUserSettings(userSettings, context);
             Toast.makeText(context, "userSettings.txt created", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {

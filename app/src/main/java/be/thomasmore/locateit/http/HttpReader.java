@@ -31,6 +31,7 @@ public class HttpReader extends AsyncTask<String, Void, String> {
         try {
             URL url= new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("token", "aH6uwQPK2jVChhW9m7cxvU5U");
             try {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 text = convertStreamToString(in);
